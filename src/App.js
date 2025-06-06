@@ -43,4 +43,26 @@ app.get("/api/users/:id", (req, res) => {
   return res.status(200).send(findUser);
 });
 
+// Query Strings or Query Params:
+
+app.get("/api/sortUsers", (req, res) => {
+  console.log(req.query);
+  const {
+    query: { filter, value },
+  } = req;
+
+  // console.log(`${filter}  ${value}`);
+
+  // if (filter && value)
+  //   return res.send(
+  //     Users.filter((user) => {
+  //       return user[filter].includes(value); // <-- added return
+  //     })
+  //   );
+
+  if (filter && value)
+    return res.send(Users.filter((u) => u[filter].includes(value)));
+  res.send(Users);
+}); // http://localhost:1089/api/sortUsers?filter=name&value=C
+
 app.listen(port, () => `Server running on port: ${port} 🔥`);
